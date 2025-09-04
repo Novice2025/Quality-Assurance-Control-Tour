@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danone Quality Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #202334 60%, #181B28 100%);
+            min-height: 100vh;
+        }
+        .text-heading {
+            color: #43C6E9;
+        }
+        .border-blue-aqua {
+            border-color: #43C6E9;
+        }
+        .border-vivid-blue {
+            border-color: #5B8AF9;
+        }
+        .border-purple-magenta {
+            border-color: #D085E5;
+        }
+        .border-green-teal {
+            border-color: #50DBB3;
+        }
+        .text-purple-magenta {
+            color: #D085E5;
+        }
+        .text-green-teal {
+            color: #50DBB3;
+        }
+        .text-cyan {
+            color: #5FE7FF;
+        }
+        .text-medium-blue-violet {
+            color: #7D97F4;
+        }
+        .text-vivid-blue {
+            color: #5B8AF9;
+        }
+        .text-blue-aqua {
+            color: #43C6E9;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .card {
+            background: #2a2d42;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 1.5px 1.5px rgba(78,51,176,0.07);
+            padding: 24px;
+            margin: 12px;
+            color: #fff;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 32px rgba(80, 219, 179, 0.12), 0 2px 4px rgba(78,51,176,0.08);
+        }
+
+        .button {
+            background: linear-gradient(90deg,#A461EF, #9548E7);
+            border-radius: 9px;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 0 12px #9548E7a0;
+            padding: 8px 24px;
+            border: none;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+
+        .button:hover {
+            filter: brightness(1.15);
+        }
+
+        .flow-step {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .flow-step::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #43C6E9;
+            border-radius: 2px;
+        }
+
+        .flow-step:last-child::before {
+            height: 50%;
+        }
+
+        .flow-step-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: #43C6E9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #202334;
+            font-size: 0.875rem;
+        }
+        
+        .explanation-box {
+            border: 2px solid #5B8AF9;
+            background-color: #252839;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(91, 138, 249, 0.2);
+        }
+
+        .explanation-box h4 {
+            font-weight: bold;
+            color: #5B8AF9;
+            margin-bottom: 0.5rem;
+        }
+
+        .explanation-box p {
+            font-size: 0.9rem;
+            color: #d1d5db;
+        }
+
+        .explanation-box .grid {
+            gap: 1rem;
+        }
+
+        .explanation-box .term {
+            background-color: #2a2d42;
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+
+        .gradient-text-blue-aqua {
+            background: linear-gradient(90deg, #43C6E9, #5FE7FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-text-purple-magenta {
+            background: linear-gradient(90deg, #D085E5, #A461EF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-text-green-teal {
+            background: linear-gradient(90deg, #50DBB3, #5FE7FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .explanation-box-alt {
+            border: 2px solid #D085E5;
+            background-color: #252839;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(208, 133, 229, 0.2);
+        }
+        
+        /* New timeline styles */
+        .timeline-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+        .timeline-bar {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, #43C6E9, #D085E5);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        .timeline-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+        }
+        .timeline-dot {
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: #43C6E9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #202334;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 4px #2a2d42;
+        }
+        .timeline-dot:hover {
+            transform: scale(1.15);
+            background-color: #D085E5;
+        }
+        .timeline-label {
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            line-height: 1;
+            color: #d1d5db;
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Header and Introduction Section -->
+    <header class="container mx-auto px-4 pt-16 pb-8 text-center">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-heading mb-4">Danone: The Quality Journey ✨</h1>
+        <p class="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto">
+            Welcome to a comprehensive virtual tour of a world-class Quality Management System (QMS). We will explore the critical, distinct roles of Quality Assurance (QA) and Quality Control (QC) from the initial receiving of goods in the warehouse, to the meticulous processes on the production floor, and concluding with the final checks at packing. This journey is inspired by Danone's unwavering commitment to quality standards, striving to **streamline** processes and **enhance** overall performance.
+        </p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-[#202334]/90 backdrop-blur-sm py-4 rounded-b-xl shadow-lg">
+        <ul class="flex flex-wrap justify-center items-center gap-2 sm:gap-4 md:gap-6 px-4">
+            <li><a href="#workflow" class="text-cyan hover:text-vivid-blue transition-colors duration-300 font-semibold text-sm sm:text-base p-2 rounded-full">Workflow ➡️</a></li>
+            <li><a href="#qa-qc" class="text-cyan hover:text-vivid-blue transition-colors duration-300 font-semibold text-sm sm:text-base p-2 rounded-full">QA & QC Roles 🛡️</a></li>
+            <li><a href="#glossary" class="text-cyan hover:text-vivid-blue transition-colors duration-300 font-semibold text-sm sm:text-base p-2 rounded-full">Glossary 📚</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Sections -->
+    <main class="container mx-auto px-4 py-16 space-y-16">
+
+        <!-- Section 1: Detailed Process Flow -->
+        <section id="workflow" class="card shadow-lg border-t-4 border-vivid-blue">
+            <h2 class="text-2xl md:text-3xl font-bold text-heading mb-4 text-center">Comprehensive Process Flow: Order to Shipment ⚙️</h2>
+            <div class="space-y-8 text-gray-300">
+                <p class="mb-8">
+                    This clinically detailed process flow outlines roles, interactions, and procedures across sales, procurement, logistics, production, and quality control.
+                </p>
+
+                <!-- New Horizontal Timeline -->
+                <div class="timeline-container relative px-4">
+                    <div class="timeline-bar"></div>
+                    <div class="timeline-step">
+                        <a href="#stepA" class="timeline-dot">A</a>
+                        <span class="timeline-label">Consultation & Scoping</span>
+                    </div>
+                    <div class="timeline-step">
+                        <a href="#stepB" class="timeline-dot">B</a>
+                        <span class="timeline-label">Order & PO</span>
+                    </div>
+                    <div class="timeline-step">
+                        <a href="#stepC" class="timeline-dot">C</a>
+                        <span class="timeline-label">Supplier Liaison</span>
+                    </div>
+                    <div class="timeline-step">
+                        <a href="#stepD" class="timeline-dot">D</a>
+                        <span class="timeline-label">Logistics & Receiving</span>
+                    </div>
+                    <div class="timeline-step">
+                        <a href="#stepE" class="timeline-dot">E</a>
+                        <span class="timeline-label">Warehouse & Storage</span>
+                    </div>
+                    <div class="timeline-step">
+                        <a href="#stepF" class="timeline-dot">F</a>
+                        <span class="timeline-label">Warehouse Release</span>
+                    </div>
+                    <div class="timeline-step">
+                        <a href="#stepG" class="timeline-dot">G</a>
+                        <span class="timeline-label">Production & Calibration</span>
+                    </div>
+                    <div class="timeline-step">
+                        <a href="#stepH" class="timeline-dot">H</a>
+                        <span class="timeline-label">QC & Packing</span>
+                    </div>
+                    <div class="timeline-step">
+                        <a href="#stepI" class="timeline-dot">I</a>
+                        <span class="timeline-label">Shipping Outbound</span>
+                    </div>
+                </div>
+                
+                <div class="flow-step" id="stepA">
+                    <div class="flow-step-icon">A</div>
+                    <div class="card p-5 rounded-lg border-l-4 border-blue-aqua shadow-inner">
+                        <h3 class="text-xl font-semibold text-blue-aqua mb-2">Customer Consultation & Project Scoping 📋</h3>
+                        <p class="mb-2">A **customer consultation** is arranged with the client and a Sales Representative to <span class="text-cyan font-semibold">define the scope of the project</span>. This meeting is crucial for <span class="text-cyan font-semibold">aligning expectations</span> before a <span class="text-cyan font-semibold">formal order is placed</span>.</p>
+                        <p>During this meeting, <span class="text-cyan font-semibold">key project variables</span> are confirmed, including the **quote**, budget spending, required **volume**, project <span class="text-cyan font-semibold">time frame</span>, <span class="text-cyan font-semibold">deadlines</span>, and payment conditions.</p>
+                        <div class="explanation-box">
+                            <h4 class="text-vivid-blue">Key Project Variables Explained</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Quote:</span> A formal document detailing the estimated cost, required materials, and proposed timeline for the project.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Budget Spending:</span> The total amount of money allocated for the project. This sets a clear financial limit and prevents unexpected costs.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Volume:</span> The total quantity of products or units required. This helps determine production capacity and raw material needs.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Time Frame:</span> The overall duration of the project, from start to finish. This provides a general timeline for all activities.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Deadlines:</span> Specific, non-negotiable dates for key milestones, such as final product delivery or phase completion. These are critical for project management.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Payment Terms & Conditions:</span> The agreed-upon terms for financial transactions, including payment schedule, method, and any late payment penalties.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Merchandiser:</span> A strategic role that uses sales data to anticipate trends, plan product ranges, and make decisions about pricing and promotions to maximize profit.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Equivalent Terms for Merchandiser ✨</h4>
+                            <p class="mb-4">In many companies, the role of Merchandiser is now referred to with titles that better reflect a strategic and analytical focus. Here are a few examples.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Product Manager</span>: <span class="gradient-text-blue-aqua font-bold">Product Strategist</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Category Manager</span>: <span class="gradient-text-purple-magenta font-bold">Category Architect</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Market Planner</span>: <span class="gradient-text-green-teal font-bold">Market Analyst</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: Project Variables Revisited ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key project variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Quote</span>: <span class="gradient-text-blue-aqua font-bold">Formal Estimate</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Budget Spending</span>: <span class="gradient-text-purple-magenta font-bold">Financial Allocation</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Volume</span>: <span class="gradient-text-green-teal font-bold">Production Capacity</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Time Frame</span>: <span class="gradient-text-blue-aqua font-bold">Project Duration</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Deadlines</span>: <span class="gradient-text-purple-magenta font-bold">Key Milestones</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Payment Terms & Conditions</span>: <span class="gradient-text-green-teal font-bold">Financial Terms</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Merchandiser</span>: <span class="gradient-text-blue-aqua font-bold">Product Strategist</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step" id="stepB">
+                    <div class="flow-step-icon">B</div>
+                    <div class="card p-5 rounded-lg border-l-4 border-blue-aqua shadow-inner">
+                        <h3 class="text-xl font-semibold text-blue-aqua mb-2">Sales Order Taking and PO Processing 📝</h3>
+                        <p class="mb-2"><span class="text-green-teal font-semibold">Sales Representatives</span> receive and confirm customer orders, forwarding details to the merchandiser.</p>
+                        <p>The <span class="text-green-teal font-semibold">Merchandisers</span> role has evolved to be more strategic and data-driven. They use sales data to anticipate trends, plan product ranges, and make decisions about pricing and promotions to maximize profit. They also create Purchase Orders (POs) for internal use and for suppliers if <span class="text-purple-magenta font-semibold">insumos</span> are needed.</p>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: Sales & Procurement ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Sales Representatives</span>: <span class="gradient-text-blue-aqua font-bold">Client Liaisons</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Merchandisers</span>: <span class="gradient-text-purple-magenta font-bold">Market Planners</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Purchase Orders (POs)</span>: <span class="gradient-text-green-teal font-bold">Procurement Agreements</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Insumos</span>: <span class="gradient-text-blue-aqua font-bold">Production Inputs</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Equivalentes de 'Insumos' em Inglês ✨</h4>
+                            <p class="mb-4">Para ajudar os nossos colegas brasileiros a entenderem, aqui estão alguns termos em inglês equivalentes a "insumos", com o seu significado no contexto da produção.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Raw Materials</span>: <span class="gradient-text-blue-aqua font-bold">Matérias-primas</span> (Os materiais básicos)</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Components</span>: <span class="gradient-text-purple-magenta font-bold">Componentes</span> (Partes que formam o produto final)</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Supplies</span>: <span class="gradient-text-green-teal font-bold">Suprimentos</span> (Itens usados no processo, mas que não estão no produto final)</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Ingredients</span>: <span class="gradient-text-blue-aqua font-bold">Ingredientes</span> (Termo usado na indústria de alimentos)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Order Approval & Customer Confirmation 📄</h4>
+                            <p class="mb-4">Here is a concise breakdown of the order process from director approval to final customer confirmation.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Order Submission</span>: <span class="gradient-text-blue-aqua font-bold">Submitted for Director Approval</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Director Approval</span>: <span class="gradient-text-purple-magenta font-bold">Validates business case and profitability</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Customer Confirmation</span>: <span class="gradient-text-green-teal font-bold">Formalizes agreement with client</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Merchandiser Handoff</span>: <span class="gradient-text-blue-aqua font-bold">Initiates procurement for production</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step" id="stepC">
+                    <div class="flow-step-icon">C</div>
+                    <div class="card p-5 rounded-lg border-l-4 border-vivid-blue shadow-inner">
+                        <h3 class="text-xl font-semibold text-vivid-blue mb-2">Supplier Liaison and Insumos Receipt 🤝</h3>
+                        <p class="mb-4">
+                            The **Procurement team** liaises with suppliers to confirm PO acceptance and delivery schedules. The **Logistics Coordinator** arranges transport to the **Loading Bay**, where the **Receiving team** supervises the delivery.
+                        </p>
+                        <p class="mt-4">
+                            The Logistics Coordinator's job is not just to book transport, but to actively manage the **Estimated Time of Arrival (ETA)** of the goods. They **track** the shipment from the supplier's warehouse, communicating any delays or changes in the schedule to the internal teams to ensure readiness at the receiving end.
+                        </p>
+                        <div class="explanation-box mt-8">
+                            <h4 class="text-vivid-blue">What is ETA?</h4>
+                            <p>
+                                **ETA** stands for **Estimated Time of Arrival**. It's a crucial metric in logistics, providing a forecasted date and time when a shipment is expected to reach its destination. The Logistics Coordinator uses real-time data from carriers to keep this information up to date, which helps the Receiving team prepare the loading bay and resources for the inbound shipment.
+                            </p>
+                        </div>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: Logistics & Receiving ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Procurement team</span>: <span class="gradient-text-blue-aqua font-bold">Supply Chain Specialists</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Logistics Coordinator</span>: <span class="gradient-text-purple-magenta font-bold">Shipment Orchestrator</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Loading Bay</span>: <span class="gradient-text-green-teal font-bold">Receiving Dock</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Receiving team</span>: <span class="gradient-text-blue-aqua font-bold">Goods Handlers</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step" id="stepD">
+                    <div class="flow-step-icon">D</div>
+                    <div class="card p-5 rounded-lg border-l-4 border-blue-aqua shadow-inner">
+                        <h3 class="text-xl font-semibold text-blue-aqua mb-2">Logistics & Inbound Operations 🚚</h3>
+                        <p class="mb-2">The journey of **insumos** (raw materials) begins with their arrival at the facility. A comprehensive, multi-step process ensures a smooth and secure transition from the transport vehicle to internal storage.</p>
+                        <ul class="list-disc list-inside space-y-3 mt-4">
+                            <li><span class="font-semibold text-cyan">Gate Entry & Security:</span> The truck driver presents a Bill of Lading (BOL) and other transport documents to the **Gate Security Officer**. The officer logs the truck's entry, verifies its ID against the scheduled delivery, and grants access.</li>
+                            <li><span class="font-semibold text-cyan">Unloading & Staging:</span> The **Logistics Coordinator** directs the truck to the correct loading bay. **Forklift operators** carefully unload the **insumos**, which are typically on pallets, and move them to a designated staging area.</li>
+                            <li><span class="font-semibold text-cyan">Initial Verification:</span> The **Receiving Clerk** performs a preliminary count and visual **inspection** to ensure the number of received goods matches the BOL and there is no visible damage to the packaging.</li>
+                        </ul>
+                        <div class="explanation-box mt-8">
+                            <h4 class="text-vivid-blue">Key Roles in Inbound Logistics</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Gate Security Officer:</span> Controls access to the facility, verifying all incoming and outgoing shipments against security protocols and scheduled deliveries.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Logistics Coordinator:</span> Manages the flow of goods into and out of the warehouse, scheduling trucks and ensuring smooth operations at the loading bays.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Forklift Operator:</span> A certified professional responsible for the safe and efficient movement of heavy loads within the warehouse.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Receiving Clerk:</span> The first point of contact for new shipments, responsible for verifying quantities and documentation to prevent discrepancies.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step" id="stepE">
+                    <div class="flow-step-icon">E</div>
+                    <div class="card p-5 rounded-lg border-l-4 border-purple-magenta shadow-inner">
+                        <h3 class="text-xl font-semibold text-purple-magenta mb-2">Warehouse Receiving & Storage 📦</h3>
+                        <p class="mb-2">The <span class="text-green-teal font-semibold">Warehouse Receiving Clerk</span> inspects goods against POs. Items are tagged, barcoded, and entered into the <span class="text-purple-magenta font-semibold">Warehouse Management System (WMS)</span> before being stored following FIFO protocols.</p>
+                        <p>Pallets are then moved to their assigned locations on racks, and the system is updated with the specific location (e.g., aisle, rack, and level) to enable easy tracking and retrieval. High-volume items are stored on lower racks, while slower-moving items are stored on higher or less accessible racks.</p>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: Warehouse Operations ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Forklift operators</span>: <span class="gradient-text-blue-aqua font-bold">Material Handlers</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Warehouse Receiving Clerk</span>: <span class="gradient-text-purple-magenta font-bold">Inventory Processor</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Warehouse Management System (WMS)</span>: <span class="gradient-text-green-teal font-bold">Digital Inventory Hub</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step" id="stepF">
+                    <div class="flow-step-icon">F</div>
+                    <div class="card p-5 rounded-lg border-l-4 border-vivid-blue shadow-inner">
+                        <h3 class="text-xl font-semibold text-vivid-blue mb-2">Warehouse Release to Production ➡️</h3>
+                        <p class="mb-2">The **Storekeeper** receives a **production order** and uses the WMS to locate the required **insumos** in the warehouse. The storekeeper releases the items, verifying the quantity and condition of the pallets before signing off on the release.</p>
+                        <p>A **forklift operator** then lifts the pallets and transports them from their storage location to the designated production staging area. The release is officially documented in the WMS, creating a digital record of the material transfer and ensuring traceability from the warehouse to the production floor.</p>
+                        <div class="explanation-box mt-8">
+                            <h4 class="text-vivid-blue">Key Roles in Warehouse Release</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Storekeeper:</span> Responsible for managing and releasing materials from the warehouse based on production demand. They ensure accurate quantities and proper documentation.</p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-vivid-blue font-semibold">Forklift Operator:</span> Manages the physical movement of materials, safely transporting pallets to their next location in the supply chain.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: The Material Handoff ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Storekeeper</span>: <span class="gradient-text-blue-aqua font-bold">Inventory Specialist</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Forklift operator</span>: <span class="gradient-text-purple-magenta font-bold">Logistics Technician</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">WMS</span>: <span class="gradient-text-green-teal font-bold">Digital Record System</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step" id="stepG">
+                    <div class="flow-step-icon">G</div>
+                    <div class="card p-5 rounded-lg border-l-4 border-green-teal shadow-inner">
+                        <h3 class="text-xl font-semibold text-green-teal mb-2">Production & Machine Calibration ⚙️</h3>
+                        <p class="mb-2">The **Production Technicians** calibrate machines according to the specifications outlined in the **Production Order (PO)** to ensure product quality and consistency. This process is a critical part of **Quality Assurance (QA)**, as it proactively prevents **defects** and **flaws** before manufacturing begins.</p>
+                        <p class="mb-2">The **Floor Manager** oversees the entire production line, monitoring performance, managing the schedules of production operators and technicians, and addressing any **bottlenecks**, **pain points**, or **recurring issues** to ensure production targets are met efficiently and safely.</p>
+                        <p class="mb-2">**Production Operators** are the ones on the ground, running the machines and performing continuous monitoring. They conduct visual checks and basic functional tests throughout the manufacturing process to ensure consistency. Any deviation from the **standard procedures** or a potential defect is immediately reported to the Quality Control inspector or Floor Manager for review.</p>
+                        <p>The **Quality Control (QC) Inspector** is responsible for performing in-process quality checks. This involves a hands-on approach where they take samples, or in some cases, "rate pieces when pieces are joined by pieces to make one product." This means they perform a quality assessment at critical sub-assembly stages, ensuring that components meet the required standards before they are incorporated into the final product. This prevents defective products from being completed and saves time and resources. </p>
+                        <div class="explanation-box mt-8">
+                            <h4 class="text-vivid-blue">Calibration vs. Validation</h4>
+                            <p>
+                                **Calibration** is the process of adjusting an instrument to a known standard to ensure its measurements are accurate. **Validation** is the process of providing documented evidence that a process or system consistently produces a product that meets its predefined specifications. Both are vital for maintaining a robust QMS.
+                            </p>
+                        </div>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: Production Line ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Production Technicians</span>: <span class="gradient-text-blue-aqua font-bold">Process Engineers</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">continuous monitoring</span>: <span class="gradient-text-purple-magenta font-bold">Real-time Oversight</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">quality checks</span>: <span class="gradient-text-green-teal font-bold">In-line Inspections</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step" id="stepH">
+                    <div class="flow-step-icon">H</div>
+                    <div class="card p-5 rounded-lg border-l-4 border-cyan shadow-inner">
+                        <h3 class="text-xl font-semibold text-cyan mb-2">Quality Control and Packing 🔎</h3>
+                        <p class="mb-2"><span class="text-green-teal font-semibold">Quality Control (QC) Inspectors</span> perform final inspections of finished goods, checking for correct labeling, sealing, and fill levels. They also ensure no products are **expired** or **struggling** to meet quality **key metrics**.</p>
+                        <p>A <span class="text-green-teal font-semibold">Buyer's representative</span> may conduct spot checks for compliance before the goods are packed and prepared for shipment.</p>
+                        <p class="mt-4">
+                            The **Packaging Operators** then take over, placing the finished goods into secondary packaging, such as cardboard boxes or cartons. This is often an automated or semi-automated process where the boxes are formed, products are inserted, and then the boxes are sealed. Before sealing, they may also add protective materials like **papel bolha** (bubble wrap) to prevent damage during transit. The sealed boxes are then labeled with a unique barcode and product information, which is a critical step for **traceability**.
+                        </p>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: Final Checks & Packaging ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Quality Control (QC) Inspectors</span>: <span class="gradient-text-blue-aqua font-bold">Product Verifiers</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Buyer's representative</span>: <span class="gradient-text-purple-magenta font-bold">Client Auditor</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">spot checks</span>: <span class="gradient-text-green-teal font-bold">Random Audits</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Packaging Operators</span>: <span class="gradient-text-blue-aqua font-bold">Assembly Technicians</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Traceability</span>: <span class="gradient-text-purple-magenta font-bold">Product Journey Tracking</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-step" id="stepI">
+                    <div class="flow-step-icon">I</div>
+                    <div class="card p-5 rounded-lg border-l-4 border-green-teal shadow-inner">
+                        <h3 class="text-xl font-semibold text-green-teal mb-2">Shipping and Loading Outbound 🚚</h3>
+                        <p class="mb-2">Packed goods are moved to the shipping area. The <span class="text-green-teal font-semibold">Shipping Coordinator</span> schedules outbound logistics.</p>
+                        <p>Loading bay personnel supervise the loading of trucks, and a final verification is performed against dispatch documents before the trucks depart for delivery.</p>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: Shipping & Logistics ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Shipping Coordinator</span>: <span class="gradient-text-blue-aqua font-bold">Logistics Manager</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">Loading bay personnel</span>: <span class="gradient-text-purple-magenta font-bold">Outbound Crew</span></p>
+                                </div>
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">final verification</span>: <span class="gradient-text-green-teal font-bold">Dispatch Confirmation</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: QA vs. QC Roles -->
+        <section id="qa-qc" class="card shadow-lg border-t-4 border-purple-magenta">
+            <h2 class="text-2xl md:text-3xl font-bold text-heading mb-4 text-center">The Roles of QA and QC 🛡️</h2>
+            <div class="space-y-6 text-gray-300">
+                <p>
+                    On the production floor, the distinction between QC and QA is even clearer. QC is hands-on and reactive, while QA is systemic and proactive.
+                </p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card border-l-4 border-purple-magenta shadow-inner">
+                        <h3 class="text-xl font-semibold text-purple-magenta mb-2">Quality Control (QC) - The 'Line Guardian' 🔬</h3>
+                        <p>
+                            The QC technician is responsible for on-the-spot monitoring and testing. They perform <span class="text-green-teal font-semibold">in-process checks</span>, taking samples and conducting physical and chemical tests to ensure the product meets specifications. They document all results and report any deviations immediately.
+                        </p>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: QC Processes ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">in-process checks</span>: <span class="gradient-text-blue-aqua font-bold">Continuous Quality Reviews</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-l-4 border-vivid-blue shadow-inner">
+                        <h3 class="text-xl font-semibold text-vivid-blue mb-2">Quality Assurance (QA) - The 'System Architect' 🛡️</h3>
+                        <p>
+                            The QA specialist's role is to ensure the entire process is robust and reliable. They are not focused on a single product but on the system itself, ensuring strong **governance**. They conduct regular audits, verify that <span class="text-purple-magenta font-semibold">SOPs</span> are being followed by production staff, and manage training programs. Their goal is to prevent defects from occurring in the first place, ensuring compliance with global **policies** and industry **rules and regulations**. They work to establish a robust **framework** and a **set of rules** that everyone must **abide by**. 
+                        </p>
+                        <p class="mt-4">
+                            QA also ensures the team **complies with** all internal and external **guidelines** and standards. This proactive approach is what makes a QA system so critical to maintaining a high level of quality.
+                        </p>
+                        <p class="mt-4">
+                            QA is constantly **striving** to meet and exceed **stringent standards** and to stay **in line with regulatory and food safety requirements**. To do this, they **perform internal and external audits** to find areas for improvement. When **findings** are identified, the QA team works to **take measures** and implement **corrective measures** to address them.
+                        </p>
+                        <p class="mt-4">
+                            An important part of this is a **horizon scanning process**, which, **supported by trusted external data**, **improves efficiency** and **drives consumer satisfaction**. **Leveraging expertise** through **external collaborations** raises **awareness of trends** and potential issues, helping to prevent them before they cause problems. If a trend or issue is detected, the QA team can **raise concerns** to management.
+                        </p>
+                        <div class="explanation-box-alt mt-8">
+                            <h4 class="text-purple-magenta">Another Perspective: QA Processes ✨</h4>
+                            <p class="mb-4">This table provides alternative phrasing for the key variables, offering a different lens on their strategic importance.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="term">
+                                    <p><span class="text-purple-magenta font-semibold">SOPs</span>: <span class="gradient-text-purple-magenta font-bold">Operational Directives</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Glossary -->
+        <section id="glossary" class="card shadow-lg border-t-4 border-medium-blue-violet">
+            <h2 class="text-2xl md:text-3xl font-bold text-heading mb-4 text-center">Essential Quality Vocabulary 📖</h2>
+            <ul class="list-disc list-inside space-y-3 text-gray-300">
+                <li><span class="text-purple-magenta font-semibold">QA (Quality Assurance):</span> A proactive, process-oriented approach focused on preventing defects and ensuring a product's quality.</li>
+                <li><span class="text-vivid-blue font-semibold">QC (Quality Control):</span> A reactive, product-oriented approach focused on identifying and correcting defects after a product is produced.</li>
+                <li><span class="text-green-teal font-semibold">GMP (Good Manufacturing Practices):</span> A system to ensure products are consistently produced and controlled according to quality standards.</li>
+                <li><span class="text-purple-magenta font-semibold">SOP (Standard Operating Procedure):</span> Detailed instructions on how to perform a routine task.</li>
+                <li><span class="text-cyan font-semibold">HACCP (Hazard Analysis and Critical Control Points):</span> A systematic preventive approach to food safety.</li>
+                <li><span class="text-vivid-blue font-semibold">Traceability:</span> The ability to track a product, its ingredients, and its history through every stage of production and distribution.</li>
+                <li><span class="text-purple-magenta font-semibold">Non-Conformance:</span> A failure to meet a specific requirement or standard.</li>
+                <li><span class="text-green-teal font-semibold">Root Cause Analysis (RCA):</span> A method of problem-solving used to identify the underlying cause of a non-conformance.</li>
+                <li><span class="text-cyan font-semibold">Audit:</span> A systematic and independent examination to determine whether activities and results comply with planned arrangements.</li>
+                <li><span class="text-medium-blue-violet font-semibold">Validation:</span> Documented evidence that provides a high degree of assurance that a process will consistently produce a product meeting its pre-determined specifications.</li>
+                <li><span class="text-vivid-blue font-semibold">CAPA (Corrective and Preventive Action):</span> Actions taken to eliminate the cause of a non-conformance.</li>
+                <li><span class="text-purple-magenta font-semibold">Purchase Order (PO):</span> A commercial document issued by a buyer to a seller, indicating product types, quantities, and agreed prices for products or services.</li>
+                <li><span class="text-green-teal font-semibold">Production Order (PO):</span> An internal document that authorizes the production of a specific quantity of a product at a specific time.</li>
+                <li><span class="text-cyan font-semibold">Sales Order:</span> An internal document created by a business to record a customer's request for products or services.</li>
+                <li><span class="text-vivid-blue font-semibold">Insumos:</span> A Spanish term for inputs or supplies, often referring to raw materials or components used in production.</li>
+                <li><span class="text-purple-magenta font-semibold">Warehouse Management System (WMS):</span> A software application that supports and optimizes warehouse operations, from inventory tracking to picking and shipping.</li>
+                <li><span class="text-green-teal font-semibold">Overview:</span> A general review or summary of a subject.</li>
+                <li><span class="text-purple-magenta font-semibold">Track:</span> To follow the movement, path, or progress of something.</li>
+                <li><span class="text-cyan font-semibold">Auditoria:</span> A formal inspection of an organization's accounts, processes, or operations. This is a Spanish term for "audit."</li>
+                <li><span class="text-vivid-blue font-semibold">Site Visit:</span> A physical visit to a facility or site to observe operations, assess conditions, and gather information. Also known as a **tour** or **inspection**.</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-gray-400 py-8 mt-16">
+        <p>&copy; 2024 Quality Standards Tour. Inspired by Danone's Commitment to Excellence.</p>
+    </footer>
+
+    <!-- JavaScript for smooth scrolling and dynamic class handling -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
